@@ -2,12 +2,13 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        Countdown countdown = new Countdown();
+        Countdown countdown1= new Countdown();
+        Countdown countdown2 = new Countdown();
 
-        CountdownThread t1 = new CountdownThread(countdown);
+        CountdownThread t1 = new CountdownThread(countdown1);
         t1.setName("Thread1");
 
-        CountdownThread t2 = new CountdownThread(countdown);
+        CountdownThread t2 = new CountdownThread(countdown1);
         t2.setName("Thread2");
 
         t1.start();
@@ -20,7 +21,7 @@ class Countdown {
 
 //    private int i;
 
-    public synchronized void doCountdown() {
+    public void doCountdown() {
         String color;
         String colorName;
 
@@ -40,9 +41,13 @@ class Countdown {
                 colorName = "Blue";
         }
 
-        for (int i = 10; i>0; i--){
-            System.out.println(color + Thread.currentThread().getName() + ": i = " + i + ", color = " + colorName);
+        synchronized (this){
+            for (int i = 10; i>0; i--){
+                System.out.println(color + Thread.currentThread().getName() + ": i = " + i + ", color = " + colorName);
+            }
         }
+
+
     }
 }
 
