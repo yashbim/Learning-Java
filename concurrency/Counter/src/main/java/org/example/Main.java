@@ -16,20 +16,6 @@ public class Main {
     }
 }
 
-
-class CountdownThread extends Thread {
-    private Countdown threadCountdown;
-
-    public CountdownThread(Countdown countdown) {
-        threadCountdown = countdown;
-    }
-
-    public void run() {
-        threadCountdown.doCountdown();
-    }
-
-}
-
 class Countdown {
 
 //    private int i;
@@ -58,4 +44,18 @@ class Countdown {
             System.out.println(color + Thread.currentThread().getName() + ": i = " + i + ", color = " + colorName);
         }
     }
+}
+
+
+class CountdownThread extends Thread {
+    private Countdown threadCountdown;
+
+    public CountdownThread(Countdown countdown) {
+        threadCountdown = countdown;
+    }
+
+    public void run() {
+        threadCountdown.doCountdown();
+    }
+
 }
