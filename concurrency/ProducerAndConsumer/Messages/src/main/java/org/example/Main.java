@@ -17,8 +17,12 @@ class Message {
     private boolean empty = true;
 
     public synchronized String read() {
-        while (empty) {
-
+        while (empty){
+            try {
+                wait();
+            }catch (InterruptedException e){
+                System.out.println(e.getMessage());
+            }
 
         }
         empty = true;
@@ -27,10 +31,16 @@ class Message {
 
     public synchronized void write(String message){
         while(!empty){
-
+            try{
+                wait();
+            }catch (InterruptedException e){
+                System.out.println(e.getMessage());
+            }
 
         }
         empty = false;
+        this.message = message;
+        notifyAll();
     }
 }
 
@@ -55,7 +65,7 @@ class Writer implements Runnable {
         for (int i = 0; i < messages.length; i++) {
             message.write(messages[i]);
             try{
-                Thread.sleep(random.nextInt(2000));
+                Thread.sleep(1000);
 
             }catch (InterruptedException e){
                 System.out.println(e.getMessage());
@@ -80,7 +90,7 @@ class Reader implements Runnable {
             latestMessage = message.read()){
             System.out.println(latestMessage);
             try{
-                Thread.sleep(random.nextInt(2000));
+                Thread.sleep(1000);
             } catch(InterruptedException e) {
                 System.out.println(e.getMessage());
 
