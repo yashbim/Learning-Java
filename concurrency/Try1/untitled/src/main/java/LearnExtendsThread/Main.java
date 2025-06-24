@@ -7,6 +7,10 @@ public class Main {
 
         t1.start();
         t2.start();
+
+        Thread run = new Thread(new Thread2());
+
+        run.start();
     }
 
 }

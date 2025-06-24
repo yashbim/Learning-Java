@@ -19,7 +19,7 @@ public class PrintThread implements Runnable{
             } else if (fromThread == "Thread 2") {
                 System.out.println("PrintThread 2 is running " + i);
             } else {
-                System.out.println("Error");
+                System.out.println(fromThread);
             }
         }
     }
